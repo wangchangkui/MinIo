@@ -19,9 +19,14 @@
         <commons-io>2.11.0</commons-io>
         <minio.version>8.4.1</minio.version>
         <common-lang>2.6</common-lang>
+        <fastjson.version>1.2.83</fastjson.version>
     </properties>
     <dependencies>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>

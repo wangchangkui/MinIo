@@ -1,1 +1,15 @@
-
+server:
+  port: 9000
+spring:
+  servlet:
+    multipart:
+      enabled: true
+        max-file-size: 1024MB
+        max-request-size: 1024MB
+  application:
+    name: minioUtil
+minio:
+  endpoint: your minio endpoint
+  accessKey: your minio access key
+  secretKey: your minio secret key
+  ngixnHost: your minio ngixnHost
