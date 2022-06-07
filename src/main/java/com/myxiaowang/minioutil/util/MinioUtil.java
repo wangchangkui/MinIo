@@ -52,17 +52,19 @@ public class MinioUtil {
      * 创建桶
      * @param bucketName 桶名
      */
-    public void createBucket(String bucketName) {
+    public boolean createBucket(String bucketName) {
         // 判断桶是否存在
         try {
             if (hasBucket(bucketName)) {
                 log.info("桶{}已经存在！",bucketName);
-                return;
+                return false;
             }
             minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
         } catch (Exception e) {
             log.error("创建bucket失败，bucketName:{}", bucketName, e);
+            throw new RuntimeException(e.getMessage());
         }
+        return true;
     }
 
 
