@@ -3,27 +3,21 @@ package com.myxiaowang.minioutil.util;
 
 import cn.hutool.core.util.IdUtil;
 import com.myxiaowang.minioutil.entity.MinIoEntity;
+import com.myxiaowang.minioutil.entity.MiniResponsesEntity;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnails;
 
 
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -32,7 +26,7 @@ import java.util.Optional;
 /**
  * @author wck
  * @version 1.0.0
- * @Description TODO
+ * @Description
  * @createTime 2022年06月07日 10:49:00
  */
 
@@ -74,15 +68,16 @@ public class MinioUtil {
 
     /**
      * 上传文件
+     *
      * @param multipartFile 文件
-     * @param bucketName 需要往那个桶上传
+     * @param bucketName    需要往那个桶上传
+     * @return MiniResponsesEntity
      */
-    public void uploadFile(MultipartFile multipartFile,String bucketName){
+    public MiniResponsesEntity uploadFile(MultipartFile multipartFile, String bucketName){
         if(multipartFile == null || multipartFile.isEmpty()){
             throw new RuntimeException("上传文件不能为空");
         }
         createBucket(bucketName);
-
         // 获取文件名称
         String fileName = multipartFile.getOriginalFilename();
         assert fileName != null;
@@ -95,12 +90,15 @@ public class MinioUtil {
                                     multipartFile.getInputStream(), multipartFile.getSize(), -1)
                             .contentType(multipartFile.getContentType())
                             .build());
-
+            String url = minIoEntity.getEndpoint() + "/" + bucketName + "/" + newFileName;
+            String urlHost = minIoEntity.getNginxHost() + "/" + bucketName + "/" + newFileName;
+            return new MiniResponsesEntity(url,urlHost);
         }catch (Exception e){
             e.printStackTrace();
             log.error(e.getMessage());
         }
 
+        return null;
     }
 
     /**
@@ -153,5 +151,34 @@ public class MinioUtil {
 
 
 
+    /***
+     * 上传视频
+     * @param file 文件
+     * @param bucketName 桶
+     * @return MiniResponsesEntity
+     * @throws Exception Exception
+     */
+    public MiniResponsesEntity uploadVideo(MultipartFile file, String bucketName) throws Exception {
+        //判断文件是否为空
+        if (null == file || 0 == file.getSize()) {
+            return null;
+        }
+        //判断存储桶是否存在  不存在则创建
+        createBucket(bucketName);
+        //文件名
+        String fileName = file.getOriginalFilename();
+        assert fileName != null;
+        String newFileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + IdUtil.nanoId() + fileName.substring(fileName.lastIndexOf("."));
+        //开始上传
+        log.info("file大小:{}",file.getSize());
+        minioClient.putObject(
+                PutObjectArgs.builder().bucket(bucketName).object(fileName).stream(
+                                file.getInputStream(), file.getSize(), -1)
+                        .contentType("video/mp4")
+                        .build());
+        String url = minIoEntity.getEndpoint() + "/" + bucketName + "/" + newFileName;
+        String urlHost = minIoEntity.getNginxHost() + "/" + bucketName + "/" + newFileName;
+        return new MiniResponsesEntity(url,urlHost);
+    }
 
 }
