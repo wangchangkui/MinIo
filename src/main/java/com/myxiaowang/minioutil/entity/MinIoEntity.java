@@ -15,11 +15,23 @@ import org.springframework.stereotype.Component;
 @Data
 public class MinIoEntity {
 
+    /**
+     * minio的 endpoint
+     */
     private String endpoint;
 
+    /**
+     * minio的 accessKey 账号
+     */
     private String accessKey;
 
+    /**
+     * minio的 secretKey 密码
+     */
     private String secretKey;
 
+    /**
+     * nginx 的地址 域名
+     */
     private String nginxHost;
 }
