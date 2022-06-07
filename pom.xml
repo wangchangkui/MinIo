@@ -20,8 +20,16 @@
         <minio.version>8.4.1</minio.version>
         <common-lang>2.6</common-lang>
         <fastjson.version>2.0.3</fastjson.version>
+        <thumbailatir>0.4.17</thumbailatir>
     </properties>
     <dependencies>
+        <!-- 压缩图片       -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${thumbailatir}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

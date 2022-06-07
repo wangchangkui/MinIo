@@ -34,4 +34,9 @@ public class MinIoEntity {
      * nginx 的地址 域名
      */
     private String nginxHost;
+
+    /**
+     * 最大文件大小
+     */
+    private Long maxSize;
 }
