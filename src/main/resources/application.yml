@@ -9,7 +9,7 @@ spring:
   application:
     name: minioUtil
 minio:
-  endpoint: your minio endpoint
-  accessKey: your minio access key
-  secretKey: your minio secret key
-  ngixnHost: your minio ngixnHost
+  endpoint: your-endpoint
+  accessKey: your accessKey
+  secretKey: your secretKey
+  nginxHost: your nginxHost
