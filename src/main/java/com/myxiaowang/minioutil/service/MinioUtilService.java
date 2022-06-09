@@ -1,5 +1,8 @@
 package com.myxiaowang.minioutil.service;
 
+import com.myxiaowang.minioutil.entity.MiniResponsesEntity;
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author wck
  * @version 1.0.0
@@ -21,4 +24,13 @@ public interface MinioUtilService {
      * @return String 结果
      */
     String removeBucket(String bucketName);
+
+    /**
+     * 上传文件到Bucket
+     *
+     * @param bucketName 桶
+     * @param file       文件
+     * @return 结果
+     */
+    MiniResponsesEntity uploadFile(String bucketName, MultipartFile file);
 }

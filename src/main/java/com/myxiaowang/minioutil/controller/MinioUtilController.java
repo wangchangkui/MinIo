@@ -1,13 +1,13 @@
 package com.myxiaowang.minioutil.controller;
 
+import com.myxiaowang.minioutil.entity.MiniResponsesEntity;
 import com.myxiaowang.minioutil.service.MinioUtilService;
 import com.myxiaowang.minioutil.util.MinioUtil;
 import io.minio.messages.Bucket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,6 +39,12 @@ public class MinioUtilController {
     @GetMapping("/getBucketList")
     public List<Bucket> getBucketList() throws Exception {
       return  minioUtil.getAllBuckets();
+    }
+
+
+    @PostMapping("/uploadFile")
+    public MiniResponsesEntity uploadFile(String bucketName, MultipartFile file){
+        return minioUtilService.uploadFile(bucketName,file);
     }
 
 

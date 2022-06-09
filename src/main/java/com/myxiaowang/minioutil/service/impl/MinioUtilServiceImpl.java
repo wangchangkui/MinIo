@@ -1,9 +1,10 @@
 package com.myxiaowang.minioutil.service.impl;
 
+import com.myxiaowang.minioutil.entity.MiniResponsesEntity;
 import com.myxiaowang.minioutil.service.MinioUtilService;
 import com.myxiaowang.minioutil.util.MinioUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -34,6 +35,11 @@ public class MinioUtilServiceImpl implements MinioUtilService {
             return "删除失败";
         }
         return "删除成功";
+    }
+
+    @Override
+    public MiniResponsesEntity uploadFile(String bucketName, MultipartFile file) {
+     return minioUtil.uploadFile(file, bucketName);
     }
 
 
