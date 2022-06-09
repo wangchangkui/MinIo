@@ -2,11 +2,14 @@ package com.myxiaowang.minioutil.controller;
 
 import com.myxiaowang.minioutil.service.MinioUtilService;
 import com.myxiaowang.minioutil.util.MinioUtil;
+import io.minio.messages.Bucket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author wck
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 public class MinioUtilController {
     private final MinioUtilService minioUtilService;
 
+    private final MinioUtil minioUtil;
+
     @GetMapping("/create/{bucketName}")
     public boolean createBucket( @PathVariable String bucketName){
         return minioUtilService.createBucket(bucketName);
@@ -29,6 +34,11 @@ public class MinioUtilController {
     @DeleteMapping("/deleteBucket/{bucketName}")
     public String removeBucket(@PathVariable String bucketName){
         return minioUtilService.removeBucket(bucketName);
+    }
+
+    @GetMapping("/getBucketList")
+    public List<Bucket> getBucketList() throws Exception {
+      return  minioUtil.getAllBuckets();
     }
 
 
