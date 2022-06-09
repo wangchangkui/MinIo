@@ -1,42 +1,36 @@
 package com.myxiaowang.minioutil.controller;
 
+import com.myxiaowang.minioutil.service.MinioUtilService;
 import com.myxiaowang.minioutil.util.MinioUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wck
  * @version 1.0.0
- * @Description TODO
+ * @Description 其实不推荐使用这些接口 我想我应该弄到Service里面去
  * @createTime 2022年06月07日 11:53:00
  */
 @Slf4j
 @RestController
 @RequestMapping("/minio")
+@RequiredArgsConstructor
 public class MinioUtilController {
-
-    @Autowired
-    private MinioUtil minioUtil;
-
+    private final MinioUtilService minioUtilService;
 
     @GetMapping("/create/{bucketName}")
-    public JSONObject createBucket( @PathVariable String bucketName){
-        JSONObject jsonObject = new JSONObject();
-        try{
-            if (minioUtil.createBucket(bucketName)) {
-                jsonObject.put("code",200);
-                jsonObject.put("message","创建成功");
-            }
-        }catch (RuntimeException e){
-            jsonObject.put("code",500);
-            jsonObject.put("message",e.getMessage());
-        }
-        return jsonObject;
+    public boolean createBucket( @PathVariable String bucketName){
+        return minioUtilService.createBucket(bucketName);
     }
+
+    @DeleteMapping("/deleteBucket/{bucketName}")
+    public String removeBucket(@PathVariable String bucketName){
+        return minioUtilService.removeBucket(bucketName);
+    }
+
+
 
 }

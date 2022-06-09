@@ -64,6 +64,7 @@ public class MinioUtil {
             log.error("创建bucket失败，bucketName:{}", bucketName, e);
             throw new RuntimeException(e.getMessage());
         }
+        log.info("创建成功：{}",bucketName);
         return true;
     }
 
