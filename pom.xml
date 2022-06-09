@@ -21,15 +21,20 @@
         <common-lang>2.6</common-lang>
         <fastjson.version>2.0.3</fastjson.version>
         <thumbailatir>0.4.17</thumbailatir>
+        <swagger.version>3.0.0</swagger.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.github.hc621311</groupId>
+            <artifactId>springboot-swagger3-starter</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
         <!-- 压缩图片       -->
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>${thumbailatir}</version>
         </dependency>
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

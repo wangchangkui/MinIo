@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author wck
  * @version 1.0.0
- * @Description TODO
+ * @Description
  * @createTime 2022年06月07日 10:44:00
  */
 @Configuration

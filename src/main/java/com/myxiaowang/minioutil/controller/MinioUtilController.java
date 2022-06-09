@@ -1,6 +1,7 @@
 package com.myxiaowang.minioutil.controller;
 
 import com.myxiaowang.minioutil.util.MinioUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description TODO
  * @createTime 2022年06月07日 11:53:00
  */
+@Slf4j
 @RestController
 @RequestMapping("/minio")
 public class MinioUtilController {
@@ -25,12 +27,14 @@ public class MinioUtilController {
     @GetMapping("/create/{bucketName}")
     public JSONObject createBucket( @PathVariable String bucketName){
         JSONObject jsonObject = new JSONObject();
-        if (minioUtil.createBucket(bucketName)) {
-            jsonObject.put("code",200);
-            jsonObject.put("message","创建成功");
-        }else{
+        try{
+            if (minioUtil.createBucket(bucketName)) {
+                jsonObject.put("code",200);
+                jsonObject.put("message","创建成功");
+            }
+        }catch (RuntimeException e){
             jsonObject.put("code",500);
-            jsonObject.put("message","无法创建桶");
+            jsonObject.put("message",e.getMessage());
         }
         return jsonObject;
     }
