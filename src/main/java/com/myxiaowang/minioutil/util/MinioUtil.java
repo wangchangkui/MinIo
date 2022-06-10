@@ -41,6 +41,32 @@ public class MinioUtil {
     private MinioClient minioClient;
 
     /**
+     * 删除桶的生命周期
+     * @param bucketName 桶名称
+     * @throws ServerException serverException
+     * @throws InsufficientDataException insufficientDataException
+     * @throws ErrorResponseException errorResponseException
+     * @throws IOException ioException
+     * @throws NoSuchAlgorithmException     noSuchAlgorithmException
+     * @throws InvalidKeyException    invalidKeyException
+     * @throws InvalidResponseException invalidResponseException
+     * @throws XmlParserException xmlParserException
+     * @throws InternalException internalException
+     */
+    public void deleteBuketLifecycle(String bucketName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        minioClient.deleteBucketLifecycle(DeleteBucketLifecycleArgs.builder().bucket(bucketName).build());
+    }
+
+    /**
+     * 官网说这是删除桶的加密信息
+     * @param bucketName 桶
+     * @throws Exception ex
+     */
+    public void deleteBucketEncryption(String bucketName) throws Exception {
+      minioClient.deleteBucketEncryption(DeleteBucketEncryptionArgs.builder().bucket(bucketName).build());
+    }
+
+    /**
      * 查询通是否能存在
      * @param bucketName 桶名称
      * @return  Boolean
