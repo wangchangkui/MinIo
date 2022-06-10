@@ -3,7 +3,6 @@ package com.myxiaowang.minioutil.controller;
 import com.myxiaowang.minioutil.entity.MiniResponsesEntity;
 import com.myxiaowang.minioutil.service.MinioUtilService;
 import com.myxiaowang.minioutil.util.MinioUtil;
-import io.minio.messages.Bucket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +36,7 @@ public class MinioUtilController {
     }
 
     @GetMapping("/getBucketList")
-    public List<Bucket> getBucketList() throws Exception {
+    public List<String> getBucketList() throws Exception {
       return  minioUtil.getAllBuckets();
     }
 

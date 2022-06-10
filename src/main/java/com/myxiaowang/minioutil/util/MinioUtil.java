@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author wck
@@ -135,8 +136,9 @@ public class MinioUtil {
      *
      * @return List
      */
-    public List<Bucket> getAllBuckets() throws Exception {
-        return minioClient.listBuckets();
+    public List<String> getAllBuckets() throws Exception {
+        List<Bucket> buckets = minioClient.listBuckets();
+        return buckets.stream().map(Bucket::name).collect(Collectors.toList());
     }
 
     /**
