@@ -12,7 +12,7 @@ Myxiaowang
 | 使用         | 版本       | 说明   |其他|
 |:-----------|:---------|------|-----|
 | Springboot | 2.7      | 无    |无|
-| docker     | 20.10.11 | 部署IO |
+| docker     | 20.10.11 | 部署IO |https://github.com/wangchangkui/MinIo/blob/master/src/main/resources/Docker%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0.docx|
 | Minio      | latest   | 无    |docker run -p 9000:9000 -p 9001:9001 -d --name minio -v /opt/docker/minio/data:/data -v /opt/docker/minio/config:/root/.minio -e "MINIO_ROOT_USER=minio" -e "MINIO_ROOT_PASSWORD=minio@123456" minio/minio server /data --console-address ":9000" --address ":9001"||
 > 加入了一个不是很好看的Swagger：
 > 启动后访问你的地址+端口/swagger-ui.html
