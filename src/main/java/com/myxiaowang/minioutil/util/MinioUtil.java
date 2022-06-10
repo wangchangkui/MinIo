@@ -27,7 +27,8 @@ import java.util.stream.Collectors;
 /**
  * @author wck
  * @version 1.0.0
- * @Description
+ * @Description 你可以继承这个类 然后重写这些方法
+ *               当然你也可以直接使用这个类
  * @createTime 2022年06月07日 10:49:00
  */
 
