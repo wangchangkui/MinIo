@@ -9,3 +9,4 @@ minio:
   accessKey: your-access-key
   secretKey: your-secret-key
   nginxHost: your-nginx-host
+  maxSize: 10240
