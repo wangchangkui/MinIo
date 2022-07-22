@@ -5,6 +5,7 @@ import com.myxiaowang.minioutil.service.MinioUtilService;
 import com.myxiaowang.minioutil.util.MinioUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,9 @@ import java.util.List;
 @RequestMapping("/minio")
 @RequiredArgsConstructor
 public class MinioUtilController {
+
+    @Value("${minio.defualtBucket}")
+    private String defualtBucket;
     private final MinioUtilService minioUtilService;
 
     private final MinioUtil minioUtil;
@@ -46,6 +50,14 @@ public class MinioUtilController {
         return minioUtilService.uploadFile(bucketName,file);
     }
 
+    @PostMapping("/defualtBucket/uploadFile")
+    public MiniResponsesEntity uploadFile( MultipartFile file){
+        return uploadFile(defualtBucket,file);
+    }
 
+    @PostMapping("/defualtBucket/uploadFileByPico")
+    public String uploadFileByPico( MultipartFile file){
+        return uploadFile(defualtBucket,file).getMinioUrl();
+    }
 
 }
