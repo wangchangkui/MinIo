@@ -121,15 +121,14 @@ public class MinioUtil {
                                     multipartFile.getInputStream(), multipartFile.getSize(), -1)
                             .contentType(multipartFile.getContentType())
                             .build());
-            String url = minIoEntity.getEndpoint() + "/" + bucketName + "/" + newFileName;
+            String url = minIoEntity.getNginxHost() + "/" + bucketName + "/" + newFileName;
             String urlHost = minIoEntity.getNginxHost() + "/" + bucketName + "/" + newFileName;
             return new MiniResponsesEntity(url,urlHost);
         }catch (Exception e){
-            e.printStackTrace();
-            log.error(e.getMessage());
+            log.error(e.getMessage(),e);
         }
 
-        return null;
+        throw new RuntimeException("上传图片失败");
     }
 
     /**

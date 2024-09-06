@@ -25,11 +25,7 @@
         <swagger.version>3.0.0</swagger.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>com.github.hc621311</groupId>
-            <artifactId>springboot-swagger3-starter</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
+
         <!-- 压缩图片       -->
         <dependency>
             <groupId>net.coobird</groupId>
